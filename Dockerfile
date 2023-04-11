@@ -48,6 +48,10 @@ RUN mamba install -y python=3.10
 # Make sure we start w/ conda active
 RUN conda init
 
+# Install Python packages from the requirements.txt
+COPY requirements.txt /tmp/
+RUN pip install -r /tmp/requirements.txt
+
 # Create a working directory
 WORKDIR /data/docker/llm-experiments
 

@@ -34,6 +34,11 @@ cp env.sample .env
 
 You should now be inside the Docker container with access to your mounted directories, necessary tools, and environment variables. `conda` and `mamba` are pre-installed and you should be in the `(base)` venv.
 
+We do this on the initial build, but to run the code, you'll probably want to run as necessary:
+```
+pip install -r requirements.txt
+```
+
 If you make any changes to the `Dockerfile` or `docker-compose.yml`, you can update the Docker image by running:
 ```
 docker-compose build

@@ -10,6 +10,8 @@ services:
         USER_ID: 1000
         GROUP_ID: 1000
     image: llm-experiments:latest
+    env_file:
+      - .env
     command: tail -f /dev/null
     tty: true
     deploy:

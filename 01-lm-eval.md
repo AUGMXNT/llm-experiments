@@ -11,7 +11,7 @@ python main.py \
     --check_integrity
 ```
 
-While `gpt-3.5-turbo` is supposed to perform on par with Instruct Davinci, you can only use it with the Chat API. It's cost is $0.002 / 1K tokens, while Davinci is $0.0200 / 1K tokens. At these prices, running the above eval cost ~$90.77 (~4.5M tokens).
+While `gpt-3.5-turbo` is supposed to perform on par with Instruct Davinci, you can only use it with the Chat API. It's cost is $0.002 / 1K tokens, while Davinci is $0.0200 / 1K tokens. At these prices, running the above eval cost ~$90.77 (~4.5M tokens) and about 1h to run the tasks.
 
 Results:
 ```
@@ -30,6 +30,7 @@ gpt3 (engine=text-davinci-003), limit: None, provide_description: False, num_few
 |coqa            |      1|f1      |0.7589|±  |0.0139|
 |                |       |em      |0.5843|±  |0.0196|
 ```
+* JSON at the bottom
 
 Fabrice Ballard has run this set of evals on many of the models (and quantizations!) that we'd want to compare with: https://bellard.org/ts_server/ Here's where `text-davinci-003` sits:
 
@@ -38,7 +39,7 @@ Fabrice Ballard has run this set of evals on many of the models (and quantizatio
 | llama_65B_q4       | 39  | 2.76          | 78.50%        | 83.90%               | 76.60%           | 81.40%     | 83.20%    | 80.70%  |
 | llama_30B_q8       | 36  | 2.853         | 77.70%        | 82.70%               | 76.30%           | 80.30%     | 80.40%    | 79.50%  |
 | llama_30B_q4       | 20  | 2.877         | 77.50%        | 82.40%               | 75.70%           | 80.20%     | 80.20%    | 79.20%  |
-| *text-davinci-003* | n/a | 3.0489        | 70.75%        | 83.33%               | 75.53%           | 83.19%     | 75.89%    | 77.74%  |
+|**text-davinci-003**| n/a | 3.0489        | 70.75%        | 83.33%               | 75.53%           | 83.19%     | 75.89%    | 77.74%  |
 | llama_13B_q8       | 15  | 3.178         | 76.50%        | 79.10%               | 73.20%           | 79.10%     | 77.10%    | 77.00%  |
 | llama_13B_q4       | 8   | 3.13          | 77.10%        | 78.60%               | 72.20%           | 78.30%     | 77.80%    | 76.80%  |
 | flan_t5_xxl_q8     | 13  | 3.049         | 77.80%        | 72.10%               | 75.10%           | 77.80%     | 73.10%    | 75.20%  |

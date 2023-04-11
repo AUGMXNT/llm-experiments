@@ -1,0 +1,24 @@
+# docker-compose.yml
+
+version: '3.9'
+
+services:
+  llm-experiments:
+    build:
+      context: .
+      args:
+        USER_ID: 1000
+        GROUP_ID: 1000
+    image: llm-experiments:latest
+    command: tail -f /dev/null
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - /data/docker/llm-experiments:/data/docker/llm-experiments
+      - /data/ai/models:/data/ai/models

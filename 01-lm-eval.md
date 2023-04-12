@@ -16,6 +16,7 @@ While `gpt-3.5-turbo` is supposed to perform on par with Instruct Davinci, you c
 Results:
 ```
 gpt3 (engine=text-davinci-003), limit: None, provide_description: False, num_fewshot: 0, batch_size: None
+```
 |      Task      |Version| Metric |Value |   |Stderr|
 |----------------|------:|--------|-----:|---|-----:|
 |winogrande      |      0|acc     |0.7553|±  |0.0121|
@@ -29,7 +30,6 @@ gpt3 (engine=text-davinci-003), limit: None, provide_description: False, num_few
 |                |       |acc     |0.7075|±  |0.0063|
 |coqa            |      1|f1      |0.7589|±  |0.0139|
 |                |       |em      |0.5843|±  |0.0196|
-```
 * JSON at the bottom
 
 Fabrice Ballard has run this set of evals on many of the models (and quantizations!) that we'd want to compare with: https://bellard.org/ts_server/ Here's where `text-davinci-003` sits:

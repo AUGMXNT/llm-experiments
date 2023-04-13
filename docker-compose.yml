@@ -21,6 +21,8 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    ports:
+      - "8889:8889"
     volumes:
       - /data/docker/llm-experiments:/data/docker/llm-experiments
       - /data/ai/models:/data/ai/models

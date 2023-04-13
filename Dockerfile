@@ -42,8 +42,10 @@ ENV CONDA_AUTO_ACTIVATE_BASE=true
 # Install Mamba
 RUN conda install -y -c conda-forge mamba
 
-# Install Python 3.10
+# Install Python 3.10, JupyterLab
 RUN mamba install -y python=3.10
+RUN mamba install -y -c conda-forge jupyterlab
+
 
 # Make sure we start w/ conda active
 RUN conda init

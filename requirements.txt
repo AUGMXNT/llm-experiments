@@ -1,3 +1,6 @@
+anthropic
 fastapi
 langchain
 openai
+pyllms
+TTS

@@ -8,7 +8,7 @@ FROM nvidia/cuda:${CUDA_VERSION}-devel-ubuntu${UBUNTU_VERSION}
 # Install system packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
-    apt-get install -y build-essential byobu bzip2 git locales neovim sudo wget && \
+    apt-get install -y alsa-utils build-essential byobu bzip2 espeak git locales neovim sudo wget && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

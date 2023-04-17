@@ -10,8 +10,12 @@ services:
         USER_ID: 1000
         GROUP_ID: 1000
     image: llm-experiments:latest
+    devices:
+      - /dev/snd:/dev/snd
     env_file:
       - .env
+    environment:
+      - PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native
     command: tail -f /dev/null
     tty: true
     deploy:
@@ -26,3 +30,8 @@ services:
     volumes:
       - /data/docker/llm-experiments:/data/docker/llm-experiments
       - /data/ai/models:/data/ai/models
+      - ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native
+    # You need to make the group id of audio to match. You can run:
+    # getent group audio | cut -d: -f3
+    group_add:
+      - 995

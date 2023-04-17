@@ -1,7 +1,27 @@
 Experiments:
 
-# LangChain  Experiments
+# Add Voice
+* Voice to API
+* Voice to GPTQ LM
+* whipser.cpp
 
+# Jupyter Lab Integration
+* https://community.openai.com/t/jupyterlab-plugin-for-codex/8866
+* https://datasans.medium.com/how-to-use-chatgpt-api-directly-in-your-jupyter-notebook-simple-no-gimmicks-be30bdf9f031
+* https://github.com/jupyterlab/jupyter-ai/blob/main/packages/jupyter-ai/README.md
+* https://www.reddit.com/r/MachineLearning/comments/10ng3pi/p_gpt_jupyterlab_jupyterlab_extension_to_use/
+* https://github.com/henshinger/gpt-jupyterlab/
+* https://pypi.org/project/jupyterlab-codex/
+* https://neptune.ai/blog/jupyterlab-extensions-for-machine-learning
+* https://snyk.io/advisor/python/gpt-jupyterlab
+* https://analyticsindiamag.com/8-jupyter-notebook-extensions-that-everyone-should-know-about/
+* https://www.reddit.com/r/OpenAI/comments/zwpbax/chatgpt_extension_for_jupyter_notebooks_personal/
+* https://chrome.google.com/webstore/detail/chatgpt-jupyter-ai-assist/dlipncbkjmjjdpgcnodkbdobkadiejll
+
+* Into VSCode?
+
+
+# LangChain  Experiments
 LangChain
 https://blog.langchain.dev/using-chatgpt-api-to-evaluate-chatgpt/
 https://twitter.com/jamescodez/status/1645464631513845760
@@ -29,7 +49,6 @@ Basaran is an open-source alternative to the OpenAI text completion API. It prov
 The open source community will eventually witness the Stable Diffusion moment for large language models (LLMs), and Basaran allows you to replace OpenAI's service with the latest open-source model to power your application without modifying a single line of code.
 
 # Coding Plugins
-
 https://github.com/features/copilot/
 https://github.com/ravenscroftj/turbopilot
 https://github.com/ravenscroftj/fauxpilot

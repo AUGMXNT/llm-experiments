@@ -3,4 +3,5 @@ fastapi
 langchain
 openai
 pyllms
+sounddevice
 TTS

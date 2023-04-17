@@ -5,13 +5,20 @@ It mounts a single GPU and the following folders:
 * `/data/docker/llm-experiments`
 * `/data/ai/models`
 
+See this related LLM Experiments worksheet for related data: https://docs.google.com/spreadsheets/d/1kT4or6b0Fedd-W_jMwYpb63e1ZR3aePczz3zlbJW-Y4/edit#gid=741531996
+* List of accessible foundational models
+* List of fine-tunes
+* List of Datasets
+* `lm-eval` results
+* Some ChatGPT bencmark tests
+
 ## Prerequisites
 * Docker and Docker Compose
 
 ## Installation
 Setup:
 ```
-git clone https://github.com/lhl/llm-experiments.git
+git clone https://github.com/AUGMXNT/llm-experiments.git
 cd llm-experiments
 
 # Modify the volume paths, UID/GUIDs in the Dockerfile and docker-compose.yml 

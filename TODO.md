@@ -38,6 +38,15 @@ https://github.com/catid/supercharger
 https://huggingface.co/blog/stackllama
 https://huggingface.co/spaces/trl-lib/stack-llama
 
+# Real-world Benchmarks
+* API to allow questions to be asked, answers to be timed, metadata stored (version, date, etc)
+* UI
+  * Add questions, run benchmarks
+  * Allow rating (correct/incorrect, ranking)
+  * Allow rerun, running multiple times (versions), adjust parameters
+* Summarize rankings
+* Allow judging?
+* See: https://github.com/spenceryonce/LLMeval ; pyllms has eval as well
 
 # Character Stuff
 Vicuna works best w/ llama.cpp directly?

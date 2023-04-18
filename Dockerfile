@@ -1,5 +1,8 @@
 # Dockerfile
 
+ARG TARGET_ARCH=x86_64
+# ARG TARGET_ARCH=aarch64
+
 # Use NVIDIA CUDA base image - 11.8 for less GPTQ-for-LLaMa drama
 ARG UBUNTU_VERSION=20.04
 ARG CUDA_VERSION=11.8.0
@@ -21,22 +24,32 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Local user setup
 ARG USER_ID=1000
 ARG GROUP_ID=1000
-RUN groupadd -g ${GROUP_ID} lhl && \
-    useradd -u ${USER_ID} -g ${GROUP_ID} -m -s /bin/bash lhl
+ARG USER=lhl
+RUN groupadd -g ${GROUP_ID} $USER && \
+    useradd -u ${USER_ID} -g ${GROUP_ID} -m -s /bin/bash $USER
 
-# Grant passwordless sudo rights to the user 'lhl'
-RUN echo 'lhl ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+# Grant passwordless sudo rights to the user '$USER'
+RUN echo '$USER ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-# Switch to the 'lhl' user
-USER lhl
+# Switch to the '$USER' user
+USER $USER
 
 # Install Miniconda
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-    bash ~/miniconda.sh -b -p /home/lhl/miniconda && \
+ARG TARGET_ARCH
+RUN if [ "$TARGET_ARCH" = "x86_64" ] ; then \
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh; \
+    elif [ "$TARGET_ARCH" = "aarch64" ]; then \
+        wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh -O ~/miniconda.sh; \
+    else \
+        echo "Unsupported architecture: $TARGET_ARCH"; \
+        exit 1; \
+    fi
+RUN chmod +x ~/miniconda.sh && \
+    bash ~/miniconda.sh -b -p /home/$USER/miniconda && \
     rm ~/miniconda.sh
 
 # Add conda to PATH
-ENV PATH="/home/lhl/miniconda/bin:$PATH"
+ENV PATH="/home/$USER/miniconda/bin:$PATH"
 ENV CONDA_AUTO_ACTIVATE_BASE=true
 
 # Install Mamba

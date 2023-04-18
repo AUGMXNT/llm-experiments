@@ -2,6 +2,17 @@
 
 # https://pypi.org/project/TTS/
 
+'''
+In the Docker instance, we have everything setup, but on Mac the Docker is a bit broken. To run:
+```
+# arch -arm64e /opt/homebrew/bin/brew install mecab
+brew install mecab
+pip install TTS
+```
+* https://github.com/coqui-ai/TTS/issues/2052
+* https://github.com/coqui-ai/TTS/issues/1533
+'''
+
 import numpy as np
 import sounddevice as sd
 from   TTS.api import TTS

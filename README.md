@@ -12,6 +12,10 @@ See this related LLM Experiments worksheet for related data: https://docs.google
 * `lm-eval` results
 * Some ChatGPT bencmark tests
 
+Also, here are some other prior work:
+* [Practical LLMs](https://mostlyobvious.org/?link=/Reference%2FSoftware%2FGenerative%20AI%2FPractical%20LLMs) - results from poking around w/ self-hosted LLMs
+* [AI Safety](https://mostlyobvious.org/?link=/Reference%2FSoftware%2FGenerative%20AI%2FSafety) - my research on AI Ethics and Safety (including AGI xrisk)
+
 ## Prerequisites
 * Docker and Docker Compose
 

@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+'''
+Based on https://github.com/amachino/command-ai
+With Sentence-based TTS grafted in.
+
+TODO: Have a speech playback queue? Clear it when a new prompt is submitted...
+
+'''
+
 import argparse
 from   datetime import datetime
 import json

@@ -34,4 +34,4 @@ services:
     # You need to make the group id of audio to match. You can run:
     # getent group audio | cut -d: -f3
     group_add:
-      - 995
+      - audio

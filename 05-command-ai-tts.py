@@ -53,14 +53,15 @@ class VoiceWorker(threading.Thread):
                 line = self.lines.popleft()
                 
                 # Play Item
-                original_stdout = sys.stdout
-                sys.stdout = open(os.devnull, 'w')
-                wav = self.tts.tts(line.strip(), speaker=self.speaker)
-                sys.stdout.close()
-                sys.stdout = original_stdout
+                if line.strip():
+                    original_stdout = sys.stdout
+                    sys.stdout = open(os.devnull, 'w')
+                    wav = self.tts.tts(line.strip(), speaker=self.speaker)
+                    sys.stdout.close()
+                    sys.stdout = original_stdout
 
-                sd.play(wav)
-                sd.wait()
+                    sd.play(wav)
+                    sd.wait()
             else:
                 # Wait for more lines
                 time.sleep(0.05)
@@ -372,7 +373,7 @@ def load_context() -> str:
         with open(context_file, mode="r") as f:
             context += f.read().strip()
     else:
-        context += f"The following is a conversation with an AI assistant named Ai (愛). The assistant is helpful, creative, clever, and very friendly." 
+        context += f"The following is a conversation with an AI assistant named Eva. The assistant is helpful, creative, clever, and very friendly." 
     return context
 
 

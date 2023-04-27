@@ -2,16 +2,16 @@
 
 '''
 Based on https://github.com/amachino/command-ai
-With Sentence-based TTS grafted in.
-
-TODO: Have a speech playback queue? Clear it when a new prompt is submitted...
-
+- Sentence-based TTS grafted in, now w/ threaded worker for smoother TTS.
+- TODO: whisper.cpp?
 '''
 
 import argparse
+from   collections import deque
 from   datetime import datetime
 import json
 import numpy as np
+import openai
 import os
 from   os import path
 import readline
@@ -19,25 +19,55 @@ import re
 import sounddevice as sd
 import sys
 from   sys import stdout
+import time
+import threading
 from   TTS.api import TTS
 from   typing import NamedTuple, Optional
 
-import openai
 
+class VoiceWorker(threading.Thread):
+    def __init__(self):
+        super(VoiceWorker, self).__init__()
+        
+        # Silent Load of TTS
+        print("Loading TTS...", end=' ')
+        original_stdout = sys.stdout
+        sys.stdout = open(os.devnull, 'w')
 
-# Silent Load of TTS
-original_stdout = sys.stdout
-sys.stdout = open(os.devnull, 'w')
+        model_name = 'tts_models/en/vctk/vits'
+        self.speaker = 'p273'
+        self.tts = TTS(model_name, progress_bar=False)
 
-model_name = 'tts_models/en/vctk/vits'
-speaker = 'p273'
-tts = TTS(model_name, progress_bar=False)
+        sys.stdout.close()
+        sys.stdout = original_stdout
 
-sys.stdout.close()
-sys.stdout = original_stdout
+        sd.default.samplerate = 22050
+        print("DONE")
 
-sd.default.samplerate = 22050
+        self.lines = deque()
+        self.stop_event = threading.Event()
 
+    def run(self):
+        while not self.stop_event.is_set():
+            if self.lines:
+                line = self.lines.popleft()
+                
+                # Play Item
+                original_stdout = sys.stdout
+                sys.stdout = open(os.devnull, 'w')
+                wav = self.tts.tts(line.strip(), speaker=self.speaker)
+                sys.stdout.close()
+                sys.stdout = original_stdout
+
+                sd.play(wav)
+                sd.wait()
+            else:
+                # Wait for more lines
+                time.sleep(0.05)
+
+    def stop(self):
+        self.stop_event.set()
+        
 
 class ChatCompletionParams(NamedTuple):
     """
@@ -94,6 +124,11 @@ class ChatService:
 
         self.history = ChatHistory(context=config.context)
 
+        # Initialize Speaker
+        self.speaker = VoiceWorker()
+        self.speaker.start()
+
+
     def start(self) -> None:
         """Start the chat service."""
         print('Type "/help" to see available commands.\n')
@@ -133,6 +168,8 @@ class ChatService:
         except Exception:
             raise
         finally:
+            self.speaker.stop()
+            self.speaker.join()
             print("\nGoodbye!\n")
 
     def handle_command_help(self) -> None:
@@ -216,18 +253,16 @@ class ChatService:
 
                     # Speak each sentence
                     sentence += content
-                    if content.strip() in {".", "!", "?"}:
-                        original_stdout = sys.stdout
-                        sys.stdout = open(os.devnull, 'w')
-                        wav = tts.tts(sentence.strip(), speaker=speaker)
-                        sys.stdout.close()
-                        sys.stdout = original_stdout
-                        sd.play(wav)
-                        # TODO: queue this up?
-                        sd.wait()
+                    if content.strip() in {".", "!", "?"} or content[-1] == "\n":
+                        self.speaker.lines.append(sentence)
                         sentence = ""
             
+        # Output the rest:
+        if sentence:
+            self.speaker.lines.append(sentence)
+
         buf = buf.strip()
+        
         stdout.write("\n\n")
         self.history.add_message({"role": "assistant", "content": buf})
 

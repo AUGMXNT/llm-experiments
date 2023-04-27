@@ -2,6 +2,7 @@ anthropic
 fastapi
 langchain
 openai
+pyllamacpp
 pyllms
 sounddevice
 TTS
